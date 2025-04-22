@@ -18,11 +18,15 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
     - name: Deploy to server
-      run: |
-        ssh -o StrictHostKeyChecking=no deployer@158.160.154.125 << 'EOF'
-        cd /home/albert/spitec
-        git pull origin main
-        source venv/bin/activate
-        pip install -r requirements.txt
-        sudo systemctl restart spitec
-        EOF
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: 158.160.154.125
+        username: deployer
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
+        script: |
+          cd /home/albert/spitec
+          git pull origin main
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sudo systemctl restart spitec
