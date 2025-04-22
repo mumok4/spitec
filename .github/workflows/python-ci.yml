@@ -1,36 +1,28 @@
-name: Python CI/CD (Windows)
+name: Deploy SPITEC
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  build-and-test:
-    runs-on: windows-latest
-
+  deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
-
-      - name: Run tests
-        run: |
-          python -m pytest
-
-      - name: Deploy to localhost (simulated)
-        run: |
-          echo "Starting application on localhost..."
-          python main.py &
-          echo "Application should now be running on localhost"
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no deployer@158.160.154.125 << 'EOF'
+        cd /home/albert/spitec
+        git pull origin main
+        source venv/bin/activate
+        pip install -r requirements.txt
+        sudo systemctl restart spitec
+        EOF
