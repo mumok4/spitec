@@ -3,6 +3,7 @@ from dash import DiskcacheManager, Dash
 import dash_bootstrap_components as dbc
 from spitec.view.visualization import create_layout, create_index_string
 from spitec.callbacks.callbacks import register_callbacks
+from waitress import serve
 
 cache = diskcache.Cache("./cache")
 background_callback_manager = DiskcacheManager(cache)
@@ -22,4 +23,5 @@ app.layout = create_layout()
 register_callbacks(app)
 
 if __name__ == "__main__":
-    app.run_server()
+    # app.run()
+    serve(app.server, host="0.0.0.0", port=8050)

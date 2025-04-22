@@ -1,0 +1,11 @@
+dash
+dash_bootstrap_components
+diskcache
+Flask
+h5py
+numpy
+pandas
+plotly
+pytest
+Requests
+dash[diskcache]
