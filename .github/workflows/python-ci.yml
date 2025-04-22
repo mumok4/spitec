@@ -24,13 +24,15 @@ jobs:
       run: ssh -T deployer@158.160.154.125
 
     - name: Deploy
-      run: |
-        ssh deployer@158.160.154.125 "
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: 158.160.154.125
+        username: deployer
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
           cd /home/albert/spitec
-          git fetch
-          git reset --hard origin/main
+          git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
           sudo systemctl restart spitec
-          echo 'Deployment completed successfully'
         "
