@@ -15,8 +15,8 @@ jobs:
       with:
         host: "${{secrets.HOST}}"
         username: "${{secrets.USER}}"
+        private_key: "${{secrets.SSH_PRIVATE_KEY}}"
         script: |
-            ssh -l albert 51.250.35.185
             cd ~/spitec
             git fetch --all
             git reset --hard origin/main
