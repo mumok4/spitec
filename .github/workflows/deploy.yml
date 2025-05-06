@@ -18,8 +18,7 @@ jobs:
         key: "${{secrets.SSH_PRIVATE_KEY}}"
         script: |
             cd ~/spitec
-            git fetch --all
-            git reset --hard origin/main
+            git pull
             source venv/bin/activate
             pip install -r requirements.txt
             sudo systemctl restart spitec
