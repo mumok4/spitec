@@ -1198,6 +1198,7 @@ def create_index_string() -> str:
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         </head>
         <body>
+            <h1>Changes for test</h1>
             {%app_entry%}
             <footer>
                 {%config%}

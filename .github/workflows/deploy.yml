@@ -1,0 +1,25 @@
+name: Deploy SPITEC
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy Application
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: "${{secrets.HOST}}"
+        username: "${{secrets.USER}}"
+        key: "${{secrets.SSH_PRIVATE_KEY}}"
+        script: |
+            cd ~/spitec
+            git pull
+            source venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart spitec
+        
