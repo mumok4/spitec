@@ -14,9 +14,9 @@ jobs:
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: "${{secrets.HOST}}"
-        user: "${{secrets.USER}}"
-        ssh: "${{secrets.SSH_PRIVATE_KEY }}"
+        username: "${{secrets.USER}}"
         script: |
+            ssh -l albert 51.250.35.185
             cd ~/spitec
             git fetch --all
             git reset --hard origin/main
