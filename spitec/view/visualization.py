@@ -1191,6 +1191,7 @@ def create_index_string() -> str:
     <!DOCTYPE html>
     <html>
         <head>
+            <h1>Изменения</h1>
             {%metas%}
             <title>{%title%}</title>
             {%favicon%}
