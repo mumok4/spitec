@@ -14,14 +14,14 @@ jobs:
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_ed25519
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        ssh-keyscan 158.160.154.125 >> ~/.ssh/known_hosts
+        ssh-keyscan 51.250.35.185 >> ~/.ssh/known_hosts
 
     - name: Test Connection
-      run: ssh -i ~/.ssh/id_ed25519 albert@158.160.154.125 hostname
+      run: ssh -i ~/.ssh/id_ed25519 albert@51.250.35.185 hostname
 
     - name: Deploy Application
       run: |
-        ssh -i ~/.ssh/id_ed25519 albert@158.160.154.125 "
+        ssh -i ~/.ssh/id_ed25519 albert@51.250.35.185 "
           cd ~/spitec
           git fetch --all
           git reset --hard origin/main
