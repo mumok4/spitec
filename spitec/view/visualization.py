@@ -447,7 +447,7 @@ def _create_input_email() -> dbc.Input:
         persistence_type="session",
         style={"width": "200px"},
         invalid=False,
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$",
+        pattern=r"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$",
     )
     return input
 
